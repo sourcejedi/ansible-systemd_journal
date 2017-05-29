@@ -12,10 +12,7 @@ galaxy_info:
       versions:
         - 24
         - 25
-        - 26
-        - rawhide
     - name: Debian
       versions:
         - jessie
         - stretch
-        - unstable
