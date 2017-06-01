@@ -4,19 +4,16 @@ Enable the systemd journal.
 
 This role will remove rsyslog, unless configured otherwise.
 
-Written for systems which came with the journal installed, but did not configure it to write to persistent storage.  Often they use the rsyslog package instead.
-
-## Status
-
-Used sucessfully on Fedora and Debian.
+This is written for installs which came with systemd, but did not configure the journal to write to persistent storage.  Often such systems (e.g. Debian) used rsyslog to write log files.
 
 ## Requirements
 
-systemd
+systemd :).
 
 ## Role Variables
 
-`systemd_journal__remove_syslog_daemon`
+* `systemd_journal__remove_syslog_daemon` - defaults to yes.
+* `systemd_journal__users` - list of users to grant read access to the journal.
 
 
 ## See also
@@ -24,12 +21,7 @@ systemd
 If you need to reduce the space used by the journal, see
 [groks.systemd-journal](https://galaxy.ansible.com/groks/systemd-journal/).
 By default, the journal is limited to 10% of filesystem capacity, or 4GB, whichever is smaller.
-It is also supposed to limit itself somehow, when the filesystem hits 85% full.
-
-There's another role which includes adding users to the group for reading the journal (systemd-journal).
-I think it's probably a good feature to have, I just didn't happen to need it.
-Poke me if you did, in the mean time you could look at
-[znz.journald](https://galaxy.ansible.com/znz/journald/).
+It should also limit itself when the filesystem hits 85% full.
 
 ## License
 

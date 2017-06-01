@@ -1,12 +1,20 @@
-- name: Create directory for persistent journal
+- name: Create directory to store persistent journal
   file:
     path: /var/log/journal
     state: directory
-  register: log_journal
+  register: create_directory
 
 - name: Setup journal directory
   command: systemd-tmpfiles --create --prefix /var/log/journal
-  when: log_journal.changed
+  when: create_directory.changed
+
+- name: Add users to group for reading the system journal
+  user:
+    name: "{{ item }}"
+
+    append: yes
+    groups: systemd-journal
+  with_items: "{{ systemd_journal__users }}"
 
 # If the distro didn't set up the journal by default,
 # that could be because it set up a traditional syslog daemon instead.
