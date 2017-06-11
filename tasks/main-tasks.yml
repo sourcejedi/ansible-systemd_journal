@@ -8,6 +8,13 @@
   command: systemd-tmpfiles --create --prefix /var/log/journal
   when: create_directory.changed
 
+- name: Trigger Flushing of Journal to Persistent Storage
+  command: systemctl start systemd-journal-flush
+  # starting one-shot services is not an idempotent operation
+  args:
+    warn: no
+  when: create_directory.changed
+
 - name: Add users to group for reading the system journal
   user:
     name: "{{ item }}"
