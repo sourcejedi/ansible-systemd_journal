@@ -1,1 +1,1 @@
-systemd_journal__remove_syslog_daemon: yes
+systemd_journal__disable_syslog_daemon: yes

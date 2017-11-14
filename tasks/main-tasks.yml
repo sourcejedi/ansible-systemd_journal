@@ -23,11 +23,25 @@
     groups: systemd-journal
   with_items: "{{ systemd_journal__users }}"
 
-# If the distro didn't set up the journal by default,
-# that could be because it set up a traditional syslog daemon instead.
+# If a distro didn't set up the journal by default,
+# it almost certainly set up a traditional syslog daemon instead.
 #
-- name: Remove syslog daemon rsyslog
-  package:
+- name: Query - is rsyslog daemon installed?
+  # Get the list of services, and look for "rsyslog".
+  # Make sure to detect errors.
+  shell: |
+    set -o errexit -o pipefail
+    (systemctl list-unit-files rsyslog.service || exit 2) | grep ^rsyslog.service
+  args:
+    executable: /bin/bash
+  register: rsyslog_service_exists
+  failed_when: rsyslog_service_exists.rc not in [0, 1]
+  check_mode: False
+  changed_when: False
+
+- name: Disable syslog daemon rsyslog
+  systemd:
     name: rsyslog
-    state: absent
-  when: systemd_journal__remove_syslog_daemon
+    enabled: no
+    state: stopped
+  when: systemd_journal__disable_syslog_daemon and rsyslog_service_exists.rc == 0

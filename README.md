@@ -2,7 +2,7 @@
 
 Enable the systemd journal.
 
-This role will remove rsyslog, unless configured otherwise.
+This role will disable rsyslog, unless configured otherwise.
 
 This is written for installs which came with systemd, but did not configure the journal to write to persistent storage.  Often such systems (e.g. Debian) would be using rsyslog to write log files instead.
 
@@ -20,7 +20,7 @@ Also this role can add users to the systemd-journal group.  I recommend making s
 
 ## Role Variables
 
-* `systemd_journal__remove_syslog_daemon` - defaults to yes.
+* `systemd_journal__disable_syslog_daemon` - defaults to yes.
 * `systemd_journal__users` - list of users to grant read access to the journal.
 
 
