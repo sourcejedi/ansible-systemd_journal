@@ -8,7 +8,10 @@ This is written for installs which came with systemd, but did not configure the 
 
 ## Requirements
 
-systemd :).
+systemd should be installed and running :).
+
+Also this role can add users to the systemd-journal group.  I recommend making sure the users are created before this role is run.  Otherwise this role will end up creating the users, which may not be what you expect.  For example the users will be created using the default setting for their home directories.
+
 
 ## Role Variables
 
