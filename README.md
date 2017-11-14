@@ -4,7 +4,12 @@ Enable the systemd journal.
 
 This role will remove rsyslog, unless configured otherwise.
 
-This is written for installs which came with systemd, but did not configure the journal to write to persistent storage.  Often such systems (e.g. Debian) used rsyslog to write log files.
+This is written for installs which came with systemd, but did not configure the journal to write to persistent storage.  Often such systems (e.g. Debian) would be using rsyslog to write log files instead.
+
+You can also grant read access to the journal for specified users.
+
+This also works on Fedora.  It's just that you shouldn't have any need for it, unless you're managing a mixture of systems.  For adding users to the `systemd-journal` group, you could equally have set that when you created them.  This is true even if you want to (ab)use ansible to bootstrap and install systemd (this role cautiously avoids doing so).  If you think it's too strange for your user setup to depend on the installation of systemd, you can instead use the `adm` group to grant access.  However this did not work in the version of systemd in Debian Jessie.
+
 
 ## Requirements
 
