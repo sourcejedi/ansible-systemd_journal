@@ -28,7 +28,11 @@
 #
 - name: Query - is rsyslog daemon installed?
   # Get the list of services, and look for "rsyslog".
-  # Make sure to detect errors.
+  # Detect error conditions (e.g. systemd unreachable).
+  # It is not an error for rsyslog.service to be absent.
+  # Note `systemctl is-enabled` / `systemctl is-active`
+  # do not make this distinction (and there is no
+  # `systemctl unit-file-exists`).
   shell: |
     set -o errexit -o pipefail
     (systemctl list-unit-files rsyslog.service || exit 2) | grep ^rsyslog.service
