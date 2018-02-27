@@ -1,3 +1,17 @@
+- name: Check if systemd would need to be installed
+  package:
+    name: systemd
+    state: present
+  check_mode: true
+  register: systemd_simulated_install
+
+- name: Require that systemd is already installed
+  assert:
+    that: not systemd_simulated_install.changed
+    msg:
+      This role will not convert your system to systemd.
+      Please do so yourself before running this role.
+
 - name: Create directory to store persistent journal
   file:
     path: /var/log/journal
