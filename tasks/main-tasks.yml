@@ -1,3 +1,7 @@
+# I got a false positive here once.
+# Maybe because I ran it in paralell with apt install?
+# (Technically, I think it was tasksel)
+#
 - name: Check if systemd would need to be installed
   package:
     name: systemd
