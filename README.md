@@ -1,4 +1,4 @@
-# sourcejedi.systemd-journal
+# sourcejedi.systemd_journal
 
 Enable the systemd journal.
 

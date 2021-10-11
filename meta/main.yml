@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: systemd-journal
+  role_name: systemd_journal
   author: Alan Jenkins
   description: Enable the systemd journal.
 
